@@ -63,7 +63,7 @@ end
 </pre>
 </td><td>
 <pre>
-template <typename T0>
+template &lt;typename T0>
 auto compute(T0 a) -> decltype(a){
     return a*2;
 }
@@ -78,8 +78,8 @@ end
 </td><td>
 <pre>
 auto compute() ->
-        std::tuple<std::string, var int>{
-    return std::tuple<std::string, var int>
+        std::tuple&lt;std::string, var int>{
+    return std::tuple&lt;std::string, var int>
             {"take", 5};
 }
 </pre>
@@ -121,7 +121,7 @@ end
 auto compute(int a, decltype(0) b=0){
     return std::make_tuple(a*2, "awa");
 }
-template <typename T0>
+template &lt;typename T0>
 auto inc(T0 x){
     return x+1;
 }
@@ -146,21 +146,21 @@ namespace func__params {
     std::size_t constexpr c = 2;
 };
 
-template<typename... Ts>
+template&lt;typename... Ts>
 int func__kwargs(Ts&&... ts) {
     return func(
-        kw::arg_get<0>(std::forward<Ts>
+        kw::arg_get&lt;0>(std::forward&lt;Ts>
                 (ts)...),
-        kw::arg_get<1>(std::forward<Ts>
-                (ts)..., kw::arg<1>(.5)),
-        kw::arg_get<2>(std::forward<Ts>
-                (ts)..., kw::arg<2>("c"))
+        kw::arg_get&lt;1>(std::forward&lt;Ts>
+                (ts)..., kw::arg&lt;1>(.5)),
+        kw::arg_get&lt;2>(std::forward&lt;Ts>
+                (ts)..., kw::arg&lt;2>("c"))
     );
 }
 
 // calls:
 func(1, 2)
-func__kwargs(3, kw::arg<func__params::c>("cc")
+func__kwargs(3, kw::arg&lt;func__params::c>("cc")
 </pre>
 </td></tr><tr><td><pre>
 //immediately invoked lambda:
