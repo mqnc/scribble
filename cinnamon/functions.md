@@ -147,7 +147,7 @@ namespace func__params {
 };
 
 template&lt;typename... Ts>
-int func__kwargs(Ts&&... ts) {
+int func__kwargs(Ts&amp;&amp;... ts) {
     return func(
         kw::arg_get&lt;0>(std::forward&lt;Ts>
                 (ts)...),
