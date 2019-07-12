@@ -1,5 +1,6 @@
 <table><tr><td><pre>
-// variable declarations always with initialization
+// variable declarations
+// always with initialization
 const a:=4
 var b:="bee"
 </pre>
@@ -33,7 +34,8 @@ function compute(i:=1338)
 void compute(decltype(1338) i=1338){}
 </pre>
 </td></tr><tr><td><pre>
-// omitting argument type creates templated function
+// omitting argument type
+// creates templated function
 function compute(var a); end
 </pre>
 </td><td>
@@ -68,20 +70,24 @@ auto compute(T0 a) -> decltype(a){
 </pre>
 </td></tr><tr><td><pre>
 // tuple return
-function compute -> (string, var int) // omitting var is implicitly const
+// omitting var is implicitly const
+function compute -> (string, var int)
 	return "take", 5
 end
 </pre>
 </td><td>
 <pre>
-auto compute() -> std::tuple<std::string, var int>{
-	return std::tuple<std::string, var int>{"take", 5};
+auto compute() ->
+		std::tuple<std::string, var int>{
+	return std::tuple<std::string, var int>
+			{"take", 5};
 }
 </pre>
 </td></tr><tr><td><pre>
 // struct return
 // does not work with typeof
-function compute -> (a:int, b:string, var c:double)
+function compute ->
+		(a:int, b:string, var c:double)
 	return 1, "two", 3.0
 end
 </pre>
@@ -97,8 +103,11 @@ compute__return compute(){
 }
 </pre>
 </td></tr><tr><td><pre>
-// work with auto, return simple type if just one return, tuple otherwise
-// very convenient but we're back to the medieval age of having to define functions above their use
+// work with auto, return simple type
+// if just one return, tuple otherwise
+// very convenient but we're back to the
+// medieval age of having to define
+// functions above their use
 function compute(var a:int, b:=0)
 	return a*2, "awa"
 end
@@ -118,9 +127,11 @@ auto inc(T0 x){
 }
 </pre>
 </td></tr><tr><td><pre>
-// create kwarg-wrapper for using external library functions with kwargs
+// create kwarg-wrapper for using external
+// library functions with kwargs
 kwargs func(a:int, b:=.5, c:="c") -> int
-// implicitly done for all functions defined in cinnamon
+// implicitly done for all functions
+// defined in cinnamon
 
 // calls:
 func(1, 2)
@@ -137,15 +148,19 @@ namespace func__params {
 template<typename... Ts>
 int func__kwargs(Ts&&... ts) {
     return func(
-        kw::arg_get<0>(std::forward<Ts>(ts)...),
-        kw::arg_get<1>(std::forward<Ts>(ts)..., kw::arg<1>(.5)),
-        kw::arg_get<2>(std::forward<Ts>(ts)..., kw::arg<2>("c"))
+        kw::arg_get<0>(std::forward<Ts>
+				(ts)...),
+        kw::arg_get<1>(std::forward<Ts>
+				(ts)..., kw::arg<1>(.5)),
+        kw::arg_get<2>(std::forward<Ts>
+				(ts)..., kw::arg<2>("c"))
     );
 }
 
 // calls:
 func(1, 2)
-func__kwargs(3, kw::arg<func__params::c>("cc")
+func__kwargs(3,
+		kw::arg<func__params::c>("cc")
 </pre>
 </td></tr><tr><td><pre>
 //immediately invoked lambda:
