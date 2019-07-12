@@ -40,7 +40,7 @@ function compute(var a); end
 </pre>
 </td><td>
 <pre>
-template <typename T0>
+template &lt;typename T0>
 void compute(T0 a){}
 </pre>
 </td></tr><tr><td><pre>
