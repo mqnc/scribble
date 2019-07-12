@@ -46,60 +46,60 @@ void compute(T0 a){}
 </td></tr><tr><td><pre>
 // simple return
 function compute -> int
-	return 0
+    return 0
 end
 </pre>
 </td><td>
 <pre>
 int compute(){
-	return 0;
+    return 0;
 }
 </pre>
 </td></tr><tr><td><pre>
 // argument-dependent return type
 function compute(a) -> typeof(a)
-	return a*2
+    return a*2
 end
 </pre>
 </td><td>
 <pre>
 template <typename T0>
 auto compute(T0 a) -> decltype(a){
-	return a*2;
+    return a*2;
 }
 </pre>
 </td></tr><tr><td><pre>
 // tuple return
 // omitting var is implicitly const
 function compute -> (string, var int)
-	return "take", 5
+    return "take", 5
 end
 </pre>
 </td><td>
 <pre>
 auto compute() ->
-		std::tuple<std::string, var int>{
-	return std::tuple<std::string, var int>
-			{"take", 5};
+        std::tuple<std::string, var int>{
+    return std::tuple<std::string, var int>
+            {"take", 5};
 }
 </pre>
 </td></tr><tr><td><pre>
 // struct return
 // does not work with typeof
 function compute ->
-		(a:int, b:string, var c:double)
-	return 1, "two", 3.0
+        (a:int, b:string, var c:double)
+    return 1, "two", 3.0
 end
 </pre>
 </td><td>
 <pre>
 struct compute__return{
-	const int a;
-	const std::string b;
-	double c;
+    const int a;
+    const std::string b;
+    double c;
 };
 compute__return compute(){
-	return {1, "two", 3.0};
+    return {1, "two", 3.0};
 }
 </pre>
 </td></tr><tr><td><pre>
@@ -109,27 +109,28 @@ compute__return compute(){
 // medieval age of having to define
 // functions above their use
 function compute(var a:int, b:=0)
-	return a*2, "awa"
+    return a*2, "awa"
 end
 
 function inc(x)
-	return x+1
+    return x+1
 end
 </pre>
 </td><td>
 <pre>
 auto compute(int a, decltype(0) b=0){
-	return std::make_tuple(a*2, "awa");
+    return std::make_tuple(a*2, "awa");
 }
 template <typename T0>
 auto inc(T0 x){
-	return x+1;
+    return x+1;
 }
 </pre>
 </td></tr><tr><td><pre>
 // create kwarg-wrapper for using external
 // library functions with kwargs
 kwargs func(a:int, b:=.5, c:="c") -> int
+
 // implicitly done for all functions
 // defined in cinnamon
 
@@ -149,37 +150,36 @@ template<typename... Ts>
 int func__kwargs(Ts&&... ts) {
     return func(
         kw::arg_get<0>(std::forward<Ts>
-				(ts)...),
+                (ts)...),
         kw::arg_get<1>(std::forward<Ts>
-				(ts)..., kw::arg<1>(.5)),
+                (ts)..., kw::arg<1>(.5)),
         kw::arg_get<2>(std::forward<Ts>
-				(ts)..., kw::arg<2>("c"))
+                (ts)..., kw::arg<2>("c"))
     );
 }
 
 // calls:
 func(1, 2)
-func__kwargs(3,
-		kw::arg<func__params::c>("cc")
+func__kwargs(3, kw::arg<func__params::c>("cc")
 </pre>
 </td></tr><tr><td><pre>
 //immediately invoked lambda:
 const x:=scribble
-	if a>b
-		return a
-	else
-		return b
-	end
+    if a>b
+        return a
+    else
+        return b
+    end
 end + 3
 </pre>
 </td><td>
 <pre>
 const auto x=[&](){
-	if(a>b){
-		return a;
-	}
-	else{
-		return b;
-	}
+    if(a>b){
+        return a;
+    }
+    else{
+        return b;
+    }() + 3;
 </pre>
 </td></tr></table>
